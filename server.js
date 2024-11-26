@@ -9,30 +9,30 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 2000;
 
-// Middleware
-app.use(bodyParser.json());
+// CORS options
 const corsOptions = {
   origin: "*",  // Allow requests from any origin
   methods: ["GET", "POST", "PUT", "DELETE"],  // Allow specific methods
   allowedHeaders: "*",  // Allow any headers in requests
 };
 
+// Middleware
+app.use(cors(corsOptions));  // CORS middleware
+app.use(bodyParser.json());  // Parse JSON bodies
+
 // Serve the static HTML and JS files from the root of 'well-wise-updated'
-app.use(express.static(__dirname));
+app.use(express.static(__dirname));  // Serve static files from the current directory
 
 // Serve the CSS files from the 'css' folder
 app.use('/css', express.static(path.join(__dirname, 'css')));
 
-app.use(cors(corsOptions));
-
 // MySQL database connection
 const db = mysql.createConnection({
   host: "fooddata.czio48s4mhh9.ap-southeast-1.rds.amazonaws.com",
-  user: "welltbn", // Use your MySQL username
-  password: "fofo1234", // Use your MySQL password
-  database: "fooddata", // Your database name
+  user: "welltbn",  // Use your MySQL username
+  password: "fofo1234",  // Use your MySQL password
+  database: "fooddata",  // Your database name
 });
-
 
 // Route to serve index.html at the root
 app.get("/", (req, res) => {
