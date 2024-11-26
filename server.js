@@ -67,7 +67,7 @@ db.connect((err) => {
     console.error("Database connection error:", err);
     return;
   }
-  console.log("Connected to the MySQL database");
+  console.log("Connected to the MySQL database (AWS RDS)");
 });
 
 // API endpoint for registration
@@ -281,5 +281,5 @@ app.get("/data", (req, res) => {
 
 // Start the server on specific
 app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running on https://well-wise-updated.onrender.com:${port}`);
+  console.log(`Server running on https://well-wise-render.onrender.com:${port}`);
 });
