@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 
 const app = express();
-const port = 2000; // Use Render's port or fallback to 2000
+const port = process.env.PORT || 2000;
 
 // Middleware
 app.use(bodyParser.json());
@@ -26,6 +26,35 @@ const db = mysql.createConnection({
   password: "fofo1234", // Use your MySQL password
   database: "fooddata", // Your database name
 });
+
+// Serve the static HTML and JS files from the root of 'well-wise-updated'
+app.use(express.static(__dirname));
+
+// Serve the CSS files from the 'css' folder
+app.use('/css', express.static(path.join(__dirname, 'css')));
+
+// Route to serve index.html at the root
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+// Other routes for specific pages
+app.get("/calcPage", (req, res) => {
+  res.sendFile(path.join(__dirname, "calcPage.html"));
+});
+
+app.get("/guide", (req, res) => {
+  res.sendFile(path.join(__dirname, "guide.html"));
+});
+
+app.get("/main", (req, res) => {
+  res.sendFile(path.join(__dirname, "main.html"));
+});
+
+app.get("/searchPage", (req, res) => {
+  res.sendFile(path.join(__dirname, "searchPage.html"));
+});
+
 
 
 // Connect to MySQL
@@ -248,5 +277,5 @@ app.get("/data", (req, res) => {
 
 // Start the server on specific
 app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running on https://wellwise.info:${port}`);
+  console.log(`Server running on https://well-wise-updated.onrender.com:${port}`);
 });
