@@ -17,6 +17,12 @@ const corsOptions = {
   allowedHeaders: "*",  // Allow any headers in requests
 };
 
+// Serve the static HTML and JS files from the root of 'well-wise-updated'
+app.use(express.static(__dirname));
+
+// Serve the CSS files from the 'css' folder
+app.use('/css', express.static(path.join(__dirname, 'css')));
+
 app.use(cors(corsOptions));
 
 // MySQL database connection
@@ -27,11 +33,6 @@ const db = mysql.createConnection({
   database: "fooddata", // Your database name
 });
 
-// Serve the static HTML and JS files from the root of 'well-wise-updated'
-app.use(express.static(__dirname));
-
-// Serve the CSS files from the 'css' folder
-app.use('/css', express.static(path.join(__dirname, 'css')));
 
 // Route to serve index.html at the root
 app.get("/", (req, res) => {
