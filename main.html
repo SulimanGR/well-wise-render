@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #e0f7fa, #fce4ec);
+        }
+        h2{
+            margin-bottom: 30px;
+            text-align: center;
+            color: #00ACC1;
+        }
+        h2 span{
+        color: #FF4081;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        .box {
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 200px;
+            transition: 0.4s ease-in-out;
+        }
+        .box:hover{
+            transform: scale(1.1);
+        }
+        .box i{
+            font-size: 40px;
+            color: #00ACC1;
+        }
+        .box h3 {
+            color: #00ACC1;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #00ACC1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0097A7;
+        }
+
+        #logout {
+            display: inline-block; 
+            padding: 0; 
+            margin-top: 50px;
+        }
+
+        #logout-button {
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            background-color: #FF4081; 
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            padding: 10px 16px; 
+            font-size: 14px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease; 
+        }
+
+        #logout-button i {
+            font-size: 18px; 
+            transition: transform 0.3s ease; 
+            color: #fff;
+        }
+
+        #logout-button:hover {
+            background-color: #FF618B; 
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
+        }
+
+        #logout-button:hover i {
+            transform: scale(1.2);
+        }
+
+    </style>
+</head>
+<body>
+    <script>
+        // Check if the user is logged in
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('You need to log in first!');
+            window.location.href = 'login.html'; // Redirect to the login page
+        }
+    </script>
+
+<h2>
+    Welcome to <span>Well Wise!</span> Choose a Service:
+</h2>
+
+<div class="container">
+    <div class="box">
+        <i class='bx bx-calculator'></i>
+        <h3>Calculator</h3>
+        <button onclick="window.location.href='calcPage.html'">Go to Calculator</button>
+    </div>
+    <div class="box">
+        <i class='bx bx-bowl-hot'></i>
+        <h3>Search a Meal</h3>
+        <button onclick="window.location.href='searchPage.html'">Go to Search</button>
+    </div>
+    <div class="box">
+        <i class='bx bx-note'></i>
+        <h3>See Guide!</h3>
+        <button onclick="window.location.href='guide.html'">Go to Guide</button>
+    </div>
+</div>
+
+<div id="logout">
+    <button id="logout-button">
+        <i class='bx bx-log-out'></i>
+        Log out
+    </button>
+</div>
+
+
+<script src="fetch.js"></script>
+</body>
+</html>

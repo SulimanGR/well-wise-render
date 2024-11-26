@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR Reference</title>
+    <style>
+    /* Global Styles */
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin: auto;
+        padding: 0;
+        background: linear-gradient(to bottom right, #e0f7fa, #fce4ec) no-repeat fixed;
+        color: #333;
+    }
+
+    .super{
+        width: 100%;
+        display: inline-block;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .box{
+        margin: 20px;
+        padding: 20px;
+        display: inline-block;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        align-items: center;
+        text-align: center;
+        transition: 0.4s ease-in-out;
+    }
+
+    /* Heading Style */
+    h2 {
+        margin-bottom: 20px;
+        text-align: center;
+        color: #00ACC1;
+    }
+
+    /* Paragraph Styles */
+    p {
+        max-width: 600px;
+        margin: 10px 0;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Link Style */
+    a {
+        color: #00ACC1;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #myImg:hover {opacity: 0.7;}
+
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    }
+
+    /* Modal Content (image) */
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+    }
+
+    /* Caption of Modal Image */
+    #caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 40px;
+        font-size: 16px;
+        color: #fff;
+        background: #6c757d;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        flex: 1;
+    }
+
+    button:hover {
+        background: #5a6268;
+    }
+
+    /* Add Animation */
+    .modal-content, #caption {  
+        -webkit-animation-name: zoom;
+        -webkit-animation-duration: 0.6s;
+        animation-name: zoom;
+        animation-duration: 0.6s;
+    }
+
+    @-webkit-keyframes zoom {
+        from {-webkit-transform:scale(0)} 
+        to {-webkit-transform:scale(1)}
+    }
+
+    @keyframes zoom {
+        from {transform:scale(0)} 
+        to {transform:scale(1)}
+    }
+
+    /* The Close Button */
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+    .modal-content {
+        width: 100%;
+    }
+    }
+    </style>
+</head>
+<body>
+    <script>
+        // Redirect to login if the user is not authenticated
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('You need to log in first!');
+            window.location.href = 'login.html'; // Redirect to the login page
+        }
+    </script>
+    
+    <div class="super">
+        <div class="box">
+            <h2>BMR and Nutrition References</h2>
+        
+            <p>
+                <strong>BMR Calculation:</strong> The code uses the Mifflin-St Jeor Equation, a trusted formula for calculating Basal Metabolic Rate (BMR). 
+                This formula is widely used in clinical and fitness fields. 
+                <strong>Source:</strong> 
+                <a href="https://academic.oup.com/ajcn" target="_blank" rel="noopener noreferrer">
+                    American Journal of Clinical Nutrition
+                </a> and 
+                <a href="https://www.healthline.com" target="_blank" rel="noopener noreferrer">
+                    Healthline
+                </a>.
+            </p>
+        
+            <p>
+                <strong>Caloric Adjustments for Weight Goals:</strong> Adjusting calories by 500 per day for weight gain or loss is a common guideline for safe weight management. 
+                <strong>Source:</strong> 
+                <a href="https://www.cdc.gov" target="_blank" rel="noopener noreferrer">
+                    CDC
+                </a> and 
+                <a href="https://www.niddk.nih.gov" target="_blank" rel="noopener noreferrer">
+                    NIDDK
+                </a>.
+            </p>
+        
+            <p>
+                <strong>Protein and Macronutrient Distribution:</strong> The protein values (1.6-2.2 g/kg) are recommended by the International Society of Sports Nutrition (ISSN) 
+                and help support specific goals like weight loss or maintenance. 
+                <strong>Source:</strong> 
+                <a href="https://jissn.biomedcentral.com" target="_blank" rel="noopener noreferrer">
+                    Journal of the International Society of Sports Nutrition
+                </a>.
+            </p>
+            </div>
+        
+            <img id="myImg" src="img/SDFA guide.jpg" alt="SDFA guide" style="width:100%;max-width:300px">
+        
+            <div id="myModal" class="modal">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="img01">
+                <div id="caption"></div>
+            </div>
+    </div>
+
+    <div>
+        <button onclick="history.back()">Go Back</button>
+    </div>
+
+    <script src="fetch.js"></script>
+    <script>
+        var modal = document.getElementById("myModal");
+
+        // Get the image and insert it inside the modal - use its "alt" text as a caption
+        var img = document.getElementById("myImg");
+        var modalImg = document.getElementById("img01");
+        var captionText = document.getElementById("caption");
+        img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+        }
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() { 
+        modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>
