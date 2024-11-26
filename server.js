@@ -11,7 +11,7 @@ const port = process.env.PORT || 2000;
 
 // CORS options
 const corsOptions = {
-  origin: "*",  // Allow requests from any origin
+  origin: "*",  // Allow only requests from this origin
   methods: ["GET", "POST", "PUT", "DELETE"],  // Allow specific methods
   allowedHeaders: "*",  // Allow any headers in requests
 };
@@ -19,6 +19,9 @@ const corsOptions = {
 // Middleware
 app.use(cors(corsOptions));  // CORS middleware
 app.use(bodyParser.json());  // Parse JSON bodies
+
+// Handle CORS preflight requests (OPTIONS)
+app.options("*", cors(corsOptions));
 
 // Serve the static HTML and JS files from the root of 'well-wise-updated'
 app.use(express.static(__dirname));  // Serve static files from the current directory
