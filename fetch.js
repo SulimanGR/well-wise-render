@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('https://well-wise-render.onrender.com/register', {
+        fetch('https://wellwise.info/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const phone = document.getElementById('phone').value; // Use phone number for login
         const password = document.getElementById('password').value;
 
-        fetch('https://well-wise-render.onrender.com/login', {
+        fetch('https://wellwise.info/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to fetch data with pagination
     function fetchPaginatedData(page = 1, calories = '', protein = '', carbohydrates = '') {
-        const url = new URL(`https://well-wise-render.onrender.com/data`);
+        const url = new URL(`https://wellwise.info/data`);
         url.searchParams.append('page', page);
         if (calories) url.searchParams.append('calories', calories);
         if (protein) url.searchParams.append('protein', protein);

@@ -11,7 +11,7 @@ const port = process.env.PORT || 2000;
 
 // CORS options
 const corsOptions = {
-  origin: "https://well-wise-render.onrender.com",  // Allow only requests from this origin
+  origin: "*", // Allow only requests from this origin
   methods: ["GET", "POST", "PUT", "DELETE"],  // Allow specific methods
   allowedHeaders: "*",  // Allow any headers in requests
 };
@@ -20,10 +20,8 @@ const corsOptions = {
 app.use(cors(corsOptions));  // CORS middleware
 app.use(bodyParser.json());  // Parse JSON bodies
 
-// Handle CORS preflight requests (OPTIONS)
-app.options("*", cors(corsOptions));
 
-// Serve the static HTML and JS files from the root of 'well-wise-updated'
+// Serve the static HTML and JS files from the root of 'well-wise-render'
 app.use(express.static(__dirname));  // Serve static files from the current directory
 
 // Serve the CSS files from the 'css' folder
@@ -31,7 +29,7 @@ app.use('/css', express.static(path.join(__dirname, 'css')));
 
 // MySQL database connection
 const db = mysql.createConnection({
-  host: "fooddata.czio48s4mhh9.ap-southeast-1.rds.amazonaws.com",
+  host: "fooddata.czio48s4mhh9.ap-southeast-1.rds.amazonaws.com", // Use your MySQL host
   user: "welltbn",  // Use your MySQL username
   password: "fofo1234",  // Use your MySQL password
   database: "fooddata",  // Your database name
@@ -281,5 +279,5 @@ app.get("/data", (req, res) => {
 
 // Start the server on specific
 app.listen(port, "0.0.0.0", () => {
-  console.log(`Server running on https://well-wise-render.onrender.com:${port}`);
+  console.log(`Server running on https://wellwise.info:${port}`);
 });

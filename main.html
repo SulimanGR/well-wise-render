@@ -6,16 +6,16 @@
     <title>Main Page</title>
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-        body {
+        html,body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            
             align-items: center;
             height: 100vh;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to bottom right, #e0f7fa, #fce4ec);
+            background: linear-gradient(to bottom right, #e0f7fa, #fce4ec) no-repeat fixed;
         }
         h2{
             margin-bottom: 30px;
@@ -26,7 +26,11 @@
         color: #FF4081;
         }
         .container {
+            margin: 20px;
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
             gap: 20px;
         }
         .box {
@@ -66,7 +70,7 @@
         #logout {
             display: inline-block; 
             padding: 0; 
-            margin-top: 50px;
+            margin-top: 20px;
         }
 
         #logout-button {
@@ -100,15 +104,41 @@
             transform: scale(1.2);
         }
 
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .box {
+                width: 80%;
+                max-width: 300px;
+            }
+        }
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 18px;
+            }
+            .box i {
+                font-size: 30px;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+            #logout-button {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
     </style>
 </head>
 <body>
     <script>
         // Check if the user is logged in
         const token = localStorage.getItem('token');
-        if (!token) {
-            alert('You need to log in first!');
-            window.location.href = 'login.html'; // Redirect to the login page
+            if (!token) {
+                alert('You need to log in first!');
+                window.location.href = 'login.html'; // Redirect to the login page
         }
     </script>
 
