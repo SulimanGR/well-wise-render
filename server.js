@@ -20,6 +20,14 @@ const corsOptions = {
 app.use(cors(corsOptions));  // CORS middleware
 app.use(bodyParser.json());  // Parse JSON bodies
 
+// Middleware to block access to sensitive files
+app.use((req, res, next) => {
+  const forbiddenFiles = ['.env', '.git', '.gitignore'];
+  if (forbiddenFiles.some(file => req.url.includes(file))) {
+      return res.status(403).send('Access denied');
+  }
+  next();
+});
 
 // Serve the static HTML and JS files from the root of 'well-wise-render'
 app.use(express.static(__dirname));  // Serve static files from the current directory
