@@ -6,25 +6,30 @@
     <title>Main Page</title>
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-        html,body {
+        /* General styles */
+        html, body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
-            
             align-items: center;
             height: 100vh;
             margin: 0;
             padding: 0;
             background: linear-gradient(to bottom right, #e0f7fa, #fce4ec) no-repeat fixed;
+            color: #333;
+            transition: background 0.3s ease, color 0.3s ease;
         }
-        h2{
+
+        h2 {
             margin-bottom: 30px;
             text-align: center;
             color: #00ACC1;
         }
-        h2 span{
-        color: #FF4081;
+
+        h2 span {
+            color: #FF4081;
         }
+
         .container {
             margin: 20px;
             display: flex;
@@ -33,6 +38,7 @@
             align-items: center;
             gap: 20px;
         }
+
         .box {
             padding: 30px;
             background: #fff;
@@ -42,17 +48,21 @@
             width: 200px;
             transition: 0.4s ease-in-out;
         }
-        .box:hover{
+
+        .box:hover {
             transform: scale(1.1);
         }
-        .box i{
+
+        .box i {
             font-size: 40px;
             color: #00ACC1;
         }
+
         .box h3 {
             color: #00ACC1;
             margin-bottom: 15px;
         }
+
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -63,45 +73,73 @@
             cursor: pointer;
             width: 100%;
         }
+
         button:hover {
             background-color: #0097A7;
         }
 
         #logout {
-            display: inline-block; 
-            padding: 0; 
+            display: inline-block;
             margin-top: 20px;
         }
 
         #logout-button {
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            background-color: #FF4081; 
-            color: #fff; 
-            border: none; 
-            border-radius: 8px; 
-            padding: 10px 16px; 
-            font-size: 14px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-            transition: all 0.3s ease; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #FF4081;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
         #logout-button i {
-            font-size: 18px; 
-            transition: transform 0.3s ease; 
-            color: #fff;
+            font-size: 18px;
+            transition: transform 0.3s ease;
         }
 
         #logout-button:hover {
-            background-color: #FF618B; 
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
+            background-color: #FF618B;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
 
         #logout-button:hover i {
             transform: scale(1.2);
+        }
+
+        /* Night mode styles */
+        body.dark-mode {
+            background: linear-gradient(to bottom right, #121212, #333);
+            color: #f1f1f1;
+        }
+
+        .box.dark-mode {
+            background: #242424;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .box.dark-mode i {
+            color: #FF4081;
+        }
+
+        button.dark-mode {
+            background-color: #424242;
+            color: #fff;
+        }
+
+        button.dark-mode:hover {
+            background-color: #616161;
+        }
+
+        #logout-button.dark-mode {
+            background-color: #616161;
+            color: #fff;
         }
 
         @media (max-width: 768px) {
@@ -109,22 +147,27 @@
                 flex-direction: column;
                 gap: 30px;
             }
+
             .box {
                 width: 80%;
                 max-width: 300px;
             }
         }
+
         @media (max-width: 480px) {
             h2 {
                 font-size: 18px;
             }
+
             .box i {
                 font-size: 30px;
             }
+
             button {
                 font-size: 14px;
                 padding: 8px 16px;
             }
+
             #logout-button {
                 font-size: 12px;
                 padding: 8px 12px;
@@ -136,42 +179,67 @@
     <script>
         // Check if the user is logged in
         const token = localStorage.getItem('token');
-            if (!token) {
-                alert('You need to log in first!');
-                window.location.href = 'login.html'; // Redirect to the login page
+        if (!token) {
+            alert('You need to log in first!');
+            window.location.href = 'login.html'; // Redirect to the login page
         }
     </script>
 
-<h2>
-    Welcome to <span>Well Wise!</span> Choose a Service:
-</h2>
-
-<div class="container">
-    <div class="box">
-        <i class='bx bx-calculator'></i>
-        <h3>Calculator</h3>
-        <button onclick="window.location.href='calcPage.html'">Go to Calculator</button>
+    <!-- Night mode toggle button -->
+    <div style="position: absolute; top: 20px; right: 20px;">
+        <button class="toggle-button" onclick="toggleNightMode()" id="themeToggle">
+            <i class='bx bx-moon'></i>
+        </button>
     </div>
-    <div class="box">
-        <i class='bx bx-bowl-hot'></i>
-        <h3>Search a Meal</h3>
-        <button onclick="window.location.href='searchPage.html'">Go to Search</button>
+
+    <h2>
+        Welcome to <span>Well Wise!</span> Choose a Service:
+    </h2>
+
+    <div class="container">
+        <div class="box">
+            <i class='bx bx-calculator'></i>
+            <h3>Calculator</h3>
+            <button onclick="window.location.href='calcPage.html'">Go to Calculator</button>
+        </div>
+        <div class="box">
+            <i class='bx bx-bowl-hot'></i>
+            <h3>Search a Meal</h3>
+            <button onclick="window.location.href='searchPage.html'">Go to Search</button>
+        </div>
+        <div class="box">
+            <i class='bx bx-note'></i>
+            <h3>See Guide!</h3>
+            <button onclick="window.location.href='guide.html'">Go to Guide</button>
+        </div>
     </div>
-    <div class="box">
-        <i class='bx bx-note'></i>
-        <h3>See Guide!</h3>
-        <button onclick="window.location.href='guide.html'">Go to Guide</button>
+
+    <div id="logout">
+        <button id="logout-button">
+            <i class='bx bx-log-out'></i>
+            Log out
+        </button>
     </div>
-</div>
 
-<div id="logout">
-    <button id="logout-button">
-        <i class='bx bx-log-out'></i>
-        Log out
-    </button>
-</div>
+    <script>
+        function toggleNightMode() {
+            const body = document.body;
+            const boxes = document.querySelectorAll('.box');
+            const buttons = document.querySelectorAll('button');
+            const themeToggle = document.getElementById('themeToggle');
 
+            // Toggle dark mode class on all relevant elements
+            body.classList.toggle('dark-mode');
+            boxes.forEach(box => box.classList.toggle('dark-mode'));
+            buttons.forEach(button => button.classList.toggle('dark-mode'));
 
-<script src="fetch.js"></script>
+            // Change the icon for the toggle button
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
+            } else {
+                themeToggle.innerHTML = "<i class='bx bx-moon'></i>";
+            }
+        }
+    </script>
 </body>
 </html>
