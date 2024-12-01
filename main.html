@@ -6,164 +6,172 @@
     <title>Main Page</title>
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
-        /* General styles */
-        html, body {
+        html,body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             display: flex;
             flex-direction: column;
+            
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(to bottom right, #e0f7fa, #fce4ec);
-            transition: background 0.3s ease, color 0.3s ease;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #e0f7fa, #fce4ec) no-repeat fixed;
         }
-
-        h2 {
-            margin: 20px 0;
-            color: #00ACC1;
+        h2{
+            margin-bottom: 30px;
             text-align: center;
+            color: #00ACC1;
         }
-
-        h2 span {
-            color: #FF4081;
+        h2 span{
+        color: #FF4081;
         }
-
         .container {
+            margin: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
             gap: 20px;
-            padding: 20px;
-            background: #ffffff;
+        }
+        .box {
+            padding: 30px;
+            background: #fff;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .box {
-            padding: 20px;
             text-align: center;
             width: 200px;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: 0.4s ease-in-out;
         }
-
-        .box:hover {
-            transform: scale(1.05);
+        .box:hover{
+            transform: scale(1.1);
         }
-
-        .box i {
+        .box i{
             font-size: 40px;
             color: #00ACC1;
         }
-
         .box h3 {
             color: #00ACC1;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
-
         button {
             padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
             background-color: #00ACC1;
-            color: #ffffff;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            width: 100%;
         }
-
         button:hover {
             background-color: #0097A7;
         }
 
-        #dark-mode-toggle {
-            margin: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background: #333;
+        #logout {
+            display: inline-block; 
+            padding: 0; 
+            margin-top: 20px;
+        }
+
+        #logout-button {
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            background-color: #FF4081; 
+            color: #fff; 
+            border: none; 
+            border-radius: 8px; 
+            padding: 10px 16px; 
+            font-size: 14px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            transition: all 0.3s ease; 
+        }
+
+        #logout-button i {
+            font-size: 18px; 
+            transition: transform 0.3s ease; 
             color: #fff;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.3s ease;
         }
 
-        #dark-mode-toggle:hover {
-            background: #555;
-            transform: scale(1.1);
+        #logout-button:hover {
+            background-color: #FF618B; 
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); 
         }
 
-        /* Dark Mode Styles */
-        body.dark-mode {
-            background: linear-gradient(to bottom right, #121212, #333);
-            color: #f1f1f1;
+        #logout-button:hover i {
+            transform: scale(1.2);
         }
 
-        body.dark-mode h2 {
-            color: #80D8FF;
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .box {
+                width: 80%;
+                max-width: 300px;
+            }
         }
-
-        body.dark-mode .container {
-            background: #242424;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
-        }
-
-        body.dark-mode .box {
-            background: #333;
-            color: #f1f1f1;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
-        }
-
-        body.dark-mode .box i {
-            color: #FFAB91;
-        }
-
-        body.dark-mode .box h3 {
-            color: #FFAB91;
-        }
-
-        body.dark-mode button {
-            background-color: #555;
-        }
-
-        body.dark-mode button:hover {
-            background-color: #777;
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 18px;
+            }
+            .box i {
+                font-size: 30px;
+            }
+            button {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+            #logout-button {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Dark Mode Toggle Button -->
-    <button id="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-
-    <!-- Page Content -->
-    <h2>Welcome to <span>Well Wise</span>!</h2>
-    <div class="container">
-        <div class="box">
-            <i class='bx bx-calculator'></i>
-            <h3>Calculator</h3>
-            <button onclick="window.location.href='calcPage.html'">Go to Calculator</button>
-        </div>
-        <div class="box">
-            <i class='bx bx-bowl-hot'></i>
-            <h3>Search a Meal</h3>
-            <button onclick="window.location.href='searchPage.html'">Go to Search</button>
-        </div>
-        <div class="box">
-            <i class='bx bx-note'></i>
-            <h3>See Guide!</h3>
-            <button onclick="window.location.href='guide.html'">Go to Guide</button>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
     <script>
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+        // Check if the user is logged in
+        const token = localStorage.getItem('token');
+            if (!token) {
+                alert('You need to log in first!');
+                window.location.href = 'login.html'; // Redirect to the login page
         }
     </script>
-    <script src="fetch.js"></script>
+
+<h2>
+    Welcome to <span>Well Wise!</span> Choose a Service:
+</h2>
+
+<div class="container">
+    <div class="box">
+        <i class='bx bx-calculator'></i>
+        <h3>Calculator</h3>
+        <button onclick="window.location.href='calcPage.html'">Go to Calculator</button>
+    </div>
+    <div class="box">
+        <i class='bx bx-bowl-hot'></i>
+        <h3>Search a Meal</h3>
+        <button onclick="window.location.href='searchPage.html'">Go to Search</button>
+    </div>
+    <div class="box">
+        <i class='bx bx-note'></i>
+        <h3>See Guide!</h3>
+        <button onclick="window.location.href='guide.html'">Go to Guide</button>
+    </div>
+</div>
+
+<div id="logout">
+    <button id="logout-button">
+        <i class='bx bx-log-out'></i>
+        Log out
+    </button>
+</div>
+
+
+<script src="fetch.js"></script>
 </body>
 </html>
