@@ -9,58 +9,50 @@
         /* General styles */
         html, body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to bottom right, #e0f7fa, #fce4ec) no-repeat fixed;
-            color: #333;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #e0f7fa, #fce4ec);
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        body.dark-mode {
-            background: linear-gradient(to bottom right, #121212, #333);
-            color: #f1f1f1;
-        }
-
         h2 {
-            margin-bottom: 30px;
-            text-align: center;
+            margin: 20px 0;
             color: #00ACC1;
-            transition: color 0.3s ease;
+            text-align: center;
         }
 
         h2 span {
             color: #FF4081;
         }
 
-        body.dark-mode h2 {
-            color: #80D8FF;
-        }
-
         .container {
-            margin: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
             gap: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         .box {
-            padding: 30px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             text-align: center;
             width: 200px;
-            transition: 0.4s ease-in-out, background 0.3s ease, color 0.3s ease;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .box:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .box i {
@@ -70,32 +62,63 @@
 
         .box h3 {
             color: #00ACC1;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         button {
             padding: 10px 20px;
-            font-size: 16px;
-            color: #fff;
             background-color: #00ACC1;
+            color: #ffffff;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            width: 100%;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         button:hover {
             background-color: #0097A7;
         }
 
-        body.dark-mode .box {
+        #dark-mode-toggle {
+            margin: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        #dark-mode-toggle:hover {
+            background: #555;
+            transform: scale(1.1);
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(to bottom right, #121212, #333);
+            color: #f1f1f1;
+        }
+
+        body.dark-mode h2 {
+            color: #80D8FF;
+        }
+
+        body.dark-mode .container {
             background: #242424;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        body.dark-mode .box {
+            background: #333;
+            color: #f1f1f1;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
         }
 
         body.dark-mode .box i {
-            color: #FF4081;
+            color: #FFAB91;
         }
 
         body.dark-mode .box h3 {
@@ -103,108 +126,20 @@
         }
 
         body.dark-mode button {
-            background-color: #424242;
-            color: #fff;
+            background-color: #555;
         }
 
         body.dark-mode button:hover {
-            background-color: #616161;
-        }
-
-        #logout {
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        #logout-button {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #FF4081;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 16px;
-            font-size: 14px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        #logout-button i {
-            font-size: 18px;
-            transition: transform 0.3s ease;
-        }
-
-        #logout-button:hover {
-            background-color: #FF618B;
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        body.dark-mode #logout-button {
-            background-color: #616161;
-            color: #fff;
-        }
-
-        body.dark-mode #logout-button:hover {
-            background-color: #757575;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                gap: 30px;
-            }
-
-            .box {
-                width: 80%;
-                max-width: 300px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h2 {
-                font-size: 18px;
-            }
-
-            .box i {
-                font-size: 30px;
-            }
-
-            button {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
-
-            #logout-button {
-                font-size: 12px;
-                padding: 8px 12px;
-            }
+            background-color: #777;
         }
     </style>
 </head>
 <body>
-    <script>
-        // Check if the user is logged in
-        const token = localStorage.getItem('token');
-        if (!token) {
-            alert('You need to log in first!');
-            window.location.href = 'login.html'; // Redirect to the login page
-        }
-    </script>
+    <!-- Dark Mode Toggle Button -->
+    <button id="dark-mode-toggle" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
-    <!-- Night mode toggle button -->
-    <div style="position: absolute; top: 20px; right: 20px;">
-        <button class="toggle-button" onclick="toggleNightMode()" id="themeToggle">
-            <i class='bx bx-moon'></i>
-        </button>
-    </div>
-
-    <h2>
-        Welcome to <span>Well Wise!</span> Choose a Service:
-    </h2>
-
+    <!-- Page Content -->
+    <h2>Welcome to <span>Well Wise</span>!</h2>
     <div class="container">
         <div class="box">
             <i class='bx bx-calculator'></i>
@@ -223,27 +158,10 @@
         </div>
     </div>
 
-    <div id="logout">
-        <button id="logout-button">
-            <i class='bx bx-log-out'></i>
-            Log out
-        </button>
-    </div>
-
+    <!-- JavaScript -->
     <script>
-        function toggleNightMode() {
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-
-            // Toggle the 'dark-mode' class on the body
-            body.classList.toggle('dark-mode');
-
-            // Update the toggle button icon
-            if (body.classList.contains('dark-mode')) {
-                themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
-            } else {
-                themeToggle.innerHTML = "<i class='bx bx-moon'></i>";
-            }
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
         }
     </script>
     <script src="fetch.js"></script>
