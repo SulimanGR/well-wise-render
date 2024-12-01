@@ -11,7 +11,7 @@ const port = process.env.PORT || 2000;
 
 // CORS options
 const corsOptions = {
-  origin: "*", // Allow only requests from this origin
+  origin: "https://wellwise.info", // Allow only requests from this origin
   methods: ["GET", "POST", "PUT", "DELETE"],  // Allow specific methods
   allowedHeaders: "*",  // Allow any headers in requests
 };
