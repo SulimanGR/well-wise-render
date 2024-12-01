@@ -1,3 +1,4 @@
+require('dotenv').config(); // Add this to load environment variables
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2");
@@ -5,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const path = require("path");
-require('dotenv').config(); // Add this to load environment variables
+
 
 const app = express();
 const port = process.env.PORT;
