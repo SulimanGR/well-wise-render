@@ -35,6 +35,7 @@
             align-items: center;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             position: relative;
+            transition: background 0.3s ease;
         }
 
         header .logo {
@@ -172,7 +173,36 @@
             color: #FFFFFF;
         }
 
-        /* Media Queries */
+        /* Night Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(to bottom right, #121212, #333);
+            color: #f1f1f1;
+        }
+
+        header.dark-mode {
+            background: linear-gradient(to right, #1e1e1e, #424242);
+        }
+
+        footer.dark-mode {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+        }
+
+        .welcome-container.dark-mode {
+            background: #242424;
+            color: #f1f1f1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .button.dark-mode {
+            background-color: #424242;
+            color: #ffffff;
+        }
+
+        .button.dark-mode:hover {
+            background-color: #616161;
+        }
+
         @media (max-width: 768px) {
             nav ul {
                 display: none;
@@ -223,11 +253,22 @@
         function toggleNightMode() {
             const body = document.body;
             const footer = document.querySelector('footer');
+            const header = document.querySelector('header');
+            const welcomeContainer = document.querySelector('.welcome-container');
+            const buttons = document.querySelectorAll('.button');
             const themeToggle = document.getElementById('themeToggle');
-            
+
+            // Toggle dark mode class on all relevant elements
             body.classList.toggle('dark-mode');
             footer.classList.toggle('dark-mode');
+            header.classList.toggle('dark-mode');
+            welcomeContainer.classList.toggle('dark-mode');
 
+            buttons.forEach(button => {
+                button.classList.toggle('dark-mode');
+            });
+
+            // Change the icon for the toggle button
             if (body.classList.contains('dark-mode')) {
                 themeToggle.innerHTML = "<i class='bx bx-sun'></i>";
             } else {

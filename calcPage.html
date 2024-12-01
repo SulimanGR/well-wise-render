@@ -81,7 +81,6 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            flex: 1;
         }
         button:hover {
             /* background: #0056b3; */
@@ -92,6 +91,12 @@
         }
         .back-button:hover {
             background: #5a6268;
+        }
+
+        #logout {
+            display: inline-block; 
+            padding: 0; 
+            margin-top: 20px;
         }
 
     </style>
@@ -161,6 +166,55 @@
         
         <div class="result" id="result"></div>
     </div>
+
+    <script>
+        function addNavBar() {
+            const navBar = document.createElement('div');
+            navBar.style.position = 'fixed';
+            navBar.style.top = '10px';
+            navBar.style.right = '10px';
+            navBar.style.backgroundColor = '#333';
+            navBar.style.padding = '10px';
+            navBar.style.borderRadius = '8px';
+            navBar.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.2)';
+        
+            const pages = [
+                { name: 'Calculator', href: 'calcpage.html' },
+                { name: 'Search', href: 'searchpage.html' },
+                { name: 'Guide', href: 'guide.html' },
+                { name: 'Home', href: 'main.html' },
+            ];
+        
+            pages.forEach(page => {
+                const link = document.createElement('a');
+                link.href = page.href;
+                link.textContent = page.name;
+                link.style.color = '#fff';
+                link.style.textDecoration = 'none';
+                link.style.margin = '0 8px';
+                link.style.padding = '5px 10px';
+                link.style.borderRadius = '5px';
+                link.style.transition = 'background-color 0.3s';
+        
+                link.addEventListener('mouseover', () => {
+                    link.style.backgroundColor = '#555';
+                });
+                link.addEventListener('mouseout', () => {
+                    link.style.backgroundColor = 'transparent';
+                });
+        
+                navBar.appendChild(link);
+            });
+        
+            document.body.appendChild(navBar);
+        }
+        </script>
+        
+        <script>
+            addNavBar();
+        </script>
+        
+        
 
     <script src="calculator.js"></script>
 </body>
