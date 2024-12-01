@@ -1,4 +1,3 @@
-require('dotenv').config(); // Add this to load environment variables
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2");
@@ -7,15 +6,14 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 
-
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 2000;
 
 // CORS options
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN, // Use the CORS origin from the .env file
-  methods: ["GET", "POST", "PUT"],  // Allow specific methods
-  allowedHeaders: ["Content-Type", "Authorization"]
+  origin: "https://wellwise.info", // Allow only requests from this origin
+  methods: ["GET", "POST", "PUT", "DELETE"],  // Allow specific methods
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Middleware
@@ -39,10 +37,10 @@ app.use('/css', express.static(path.join(__dirname, 'css')));
 
 // MySQL database connection
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,  // Use the MySQL host from the .env file
-  user: process.env.DB_USER,  // Use the MySQL username from the .env file
-  password: process.env.DB_PASSWORD,  // Use the MySQL password from the .env file
-  database: process.env.DB_NAME,  // Use the MySQL database name from the .env file
+  host: "fooddata.czio48s4mhh9.ap-southeast-1.rds.amazonaws.com", // Use your MySQL host
+  user: "welltbn",  // Use your MySQL username
+  password: "fofo1234",  // Use your MySQL password
+  database: "fooddata",  // Your database name
 });
 
 // Route to serve index.html at the root
@@ -66,6 +64,8 @@ app.get("/main", (req, res) => {
 app.get("/searchPage", (req, res) => {
   res.sendFile(path.join(__dirname, "searchPage.html"));
 });
+
+
 
 // Connect to MySQL
 db.connect((err) => {
@@ -172,7 +172,7 @@ app.post("/login", (req, res) => {
 
       const token = jwt.sign(
         { id: user.id, phone: user.phone },
-        process.env.JWT_SECRET, // Use the JWT secret from the .env file
+        "your_jwt_secret",
         { expiresIn: "1h" }
       );
       res.json({ success: true, token });
@@ -188,7 +188,7 @@ function authenticateToken(req, res, next) {
     return res.sendStatus(401); // Unauthorized
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {  // Use JWT secret from .env
+  jwt.verify(token, "your_jwt_secret", (err, user) => {
     if (err) {
       return res.sendStatus(403); // Forbidden
     }
@@ -196,6 +196,94 @@ function authenticateToken(req, res, next) {
     next();
   });
 }
+
+// Protected route to serve calcPage
+app.get("/calcPage", authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "calcPage.html")); // Serve calcPage.html directly
+});
+
+// Protected route to serve calcPage
+app.get("/guide", authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "guide.html")); // Serve calcPage.html directly
+});
+
+// Protected route to serve calcPage
+app.get("/main", authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "main.html")); // Serve main.html directly
+});
+
+// Protected route to serve index
+app.get("/searchPage", authenticateToken, (req, res) => {
+  res.sendFile(path.join(__dirname, "searchPage.html")); // Serve index.html directly
+});
+
+
+
+// Route to fetch data from the meals table with pagination and filtering
+app.get("/data", (req, res) => {
+  const { page = 1, limit = 15, calories, protein, carbohydrates } = req.query;
+  let query = "SELECT COUNT(*) AS totalRecords FROM meals WHERE 1=1";
+
+  if (calories) {
+    query += ` AND calories = ${mysql.escape(calories)}`;
+  }
+
+  if (protein) {
+    query += ` AND protein = ${mysql.escape(protein)}`;
+  }
+
+  if (carbohydrates) {
+    query += ` AND carbohydrates = ${mysql.escape(carbohydrates)}`;
+  }
+
+  db.query(query, (error, countResults) => {
+    if (error) {
+      console.error("Error executing count query:", error);
+      return res.status(500).send("Error counting total records");
+    }
+
+    const totalRecords = countResults[0].totalRecords;
+    const totalPages = Math.ceil(totalRecords / limit);
+    const offset = (page - 1) * limit;
+
+    let dataQuery = "SELECT * FROM meals WHERE 1=1";
+
+    if (calories) {
+      const parsedCalories = parseInt(calories, 10); // Parse as integer
+      dataQuery += ` AND calories BETWEEN ${mysql.escape(
+        Math.max(0, parsedCalories - 100)
+      )} AND ${mysql.escape(parsedCalories + 100)}`;
+    }
+    if (protein) {
+      const parsedProtein = parseInt(protein, 10); // Parse as integer
+      dataQuery += ` AND protein BETWEEN ${mysql.escape(
+        Math.max(0, parsedProtein - 5)
+      )} AND ${mysql.escape(parsedProtein + 15)}`;
+    }
+    if (carbohydrates) {
+      const parsedCarbohydrates = parseInt(carbohydrates, 10); // Parse as integer
+      dataQuery += ` AND carbohydrates BETWEEN ${mysql.escape(
+        Math.max(0, parsedCarbohydrates - 10)
+      )} AND ${mysql.escape(parsedCarbohydrates + 10)}`;
+    }
+
+    dataQuery += ` LIMIT ${mysql.escape(limit)} OFFSET ${mysql.escape(offset)}`;
+
+    db.query(dataQuery, (error, results) => {
+      if (error) {
+        console.error("Error executing data query:", error);
+        return res.status(500).send("Error fetching data from database");
+      }
+
+      const responseData = {
+        data: results,
+        totalPages: totalPages,
+      };
+
+      res.json(responseData);
+    });
+  });
+});
 
 // Start the server on specific
 app.listen(port, "0.0.0.0", () => {
